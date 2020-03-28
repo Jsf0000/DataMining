@@ -1,0 +1,206 @@
+---
+title: "Tarea3"
+author: "Jason Solano and Percy Herrera"
+date: "3/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tarea 3
+
+En este documento se presenta un análisis parcial con la metodología CRISP-DM, en la cual se aplica un modelo descriptivo utilizando reglas de asociación. Por otra parte se interpretara dichas reglas para un análisis mas detallado.
+
+## Objetivos
+
+### Objetivo de mineria de datos
+Encontar patrones y reglas de asociación que permitan determinar cuando una persona puede tener un ingreso mayor a 50 mil dorales al año.
+
+### Objetivo del negocio
+Encontar características que permitan identificar los usuarios o clientes que tenan ingresos de mas de 50 mil dolares al año.
+
+
+
+## Librerías
+
+### Librerías utilizadas 
+``` {r}
+library(arules)
+library(arulesViz)
+library(tidyverse)
+library(plyr)
+library(ggplot2)
+library(knitr)
+library(lubridate)
+library(RColorBrewer)
+library(arules)
+
+```
+
+## Utilización de Datos
+
+Cargamos el dataset que contiene información de residentes adultos de Estados Unidos
+
+```{r message=TRUE}
+datUSA<- read.csv('AdultosUSA.csv',sep=';',dec=',',stringsAsFactors = FALSE)
+view(datUSA)
+```
+
+## Limpieza de datos 
+
+Removemos los datos nulos
+
+```{r}
+datosCompletosUSA<- na.omit(datUSA)
+view(datosCompletosUSA)
+```
+
+Removemos datos con valores incongruentes
+```{r}
+datosCompletosUSA <- datUSA[!(datUSA$Edad=="" | datUSA$TipoTrabajo==""| datUSA$NivelEducativo==""|datUSA$NivelEducativo==""|datUSA$AnnosEducacion==""|datUSA$EstadoCivil==""|datUSA$Ocupacion==""|datUSA$Sexo==""|datUSA$HorasSemanales==""|datUSA$PaisOrigen==""|datUSA$Ingresos==""),] 
+view(datosCompletosUSA)
+```
+
+Observamos los datos
+
+```{r}
+summary(datosCompletosUSA)
+```
+
+## Inicamos con la transformación de 
+Las variables son no numéricas
+Se convierten a factor las variables TipoTrabajo, NivelEducativo, EstadoCivil, Ocupacion, Sexo, PaisOrigen y Ingresos
+
+```{r}
+datosCompletosUSA$TipoTrabajo<- as.factor(datosCompletosUSA$TipoTrabajo)
+
+datosCompletosUSA$NivelEducativo<- as.factor(datosCompletosUSA$NivelEducativo)
+
+datosCompletosUSA$EstadoCivil<- as.factor(datosCompletosUSA$EstadoCivil)
+
+datosCompletosUSA$Ocupacion<- as.factor(datosCompletosUSA$Ocupacion)
+
+datosCompletosUSA$Sexo<- as.factor(datosCompletosUSA$Sexo)
+
+datosCompletosUSA$PaisOrigen<- as.factor(datosCompletosUSA$PaisOrigen)
+
+datosCompletosUSA$Ingresos<- as.factor(datosCompletosUSA$Ingresos)
+```
+
+## Definición de Rangos
+
+Para el caso de horas semanales, se definen los siguientes rangos, debido a que 20 horas son trabajos de medio tiempo y 40 horas son trabajos de tiempo completo
+
+```{r}
+datosCompletosUSA$HorasSemanales <- discretize(datosCompletosUSA$HorasSemanales, method="fixed",breaks = c(0, 20, 40,60,100))
+```
+
+Para el caso de edad, se empieza los rangos de 0 a 20  donde hay pocos ingresos, de 20 a 40 donde existe un gran crecimiento de ingresos y de 40 a 60 cerca de la pensión, y de 60 a 100 donde existen gran cantidad de salarios con pensión
+
+```{r}
+datosCompletosUSA$Edad <- discretize(datosCompletosUSA$Edad, method="fixed",breaks = c(0, 20, 40,60,100))
+```
+
+Para el caso de educación se divide de 0 a 5 años para el caso de personas con educación en primaria, secundaria de 5 a 10, para el caso universitario tipo bachillerato de 10 a 15, y maestrías o doctorados de 15 a 30
+```{r}
+datosCompletosUSA$AnnosEducacion <- discretize(datosCompletosUSA$AnnosEducacion, method="fixed",breaks = c(0, 5, 10,15,30))
+```
+
+Observamos los datos
+
+```{r}
+summary(datosCompletosUSA)
+```
+
+## Generación de reglas
+
+Primero para generar reglas debemos convertir nuestros datos a tipo basket, para lo cual utilizamos el siguiente comando
+```{r}
+trns<- as(datosCompletosUSA,'transactions') 
+
+summary(trns)
+```
+
+Se generan las reglas relacionadas con ingresos superiores a 50k:
+
+```{r}
+reglasIngresos50p<- apriori(trns,parameter =list(supp=0.001,conf=0.8), 
+                            appearance = list(default='lhs',rhs='Ingresos=>50K.')  )
+```
+
+Observamos la cantidad de reglas
+```{r}
+length(reglasIngresos50p)
+```
+
+Filtramos las primeras reglas
+
+
+```{r}
+inspect(head(reglasIngresos50p))
+```
+
+Parte de la limpieza de reglas consta con eliminar la reglas que son subconjunto de otras
+
+```{r}
+subconjuntos<- which(colSums(is.subset(reglasIngresos50p,reglasIngresos50p))>1)
+
+reglasFinal<- reglasIngresos50p[-subconjuntos]
+```
+
+Observamos la cantidad de reglas
+
+```{r}
+length(reglasFinal)
+```
+
+
+Observamos las mejores 10 reglas
+
+```{r}
+inspect(sort(reglasFinal,by='support',decreasing = TRUE)[1:10])
+```
+
+Observamos las tres mejores
+
+```{r}
+tresMejores <- head(sort(reglasFinal,by='support',decreasing = TRUE)[1:3])
+inspect(tresMejores)
+```
+
+## Se gráfica el resultado
+
+```{r}
+plot(tresMejores,method = 'graph',engine = 'htmlwidget')
+```
+
+```{r}
+plot(tresMejores,method ='paracoord')
+```
+
+## Conclusión
+
+Como el anunciado de la tarea se indicaba el objetivo del negocio y de la mineria de datos es encontrar patrones y reglas que permitan identificar cuando una persona gana mas de 50 mil dolares para este caso se concluye lo siguiente
+
+Patrones: 
+
+- Una persona con un grado de educación unversitario se puede deducir tipo maestria o doctorado, universitario tipo bachillerato
+
+- Se su trabojo en el sector privado
+
+- Edad Persona mayor de 40 años y menor de 60 años
+
+- Ocupación gerencial 
+
+- Estado civil: casado de forma legal
+
+Reglas: 
+
+ - Edad=[40,60),AnnosEducacion=[10,15),stadoCivil=Married-civ-spouse,Ocupacion=Exec-managerial
+ - Edad=[40,60) TipoTrabajo=Private, EstadoCivil=Married-civ-spouse, Ocupacion=Exec-managerial
+ - AnnosEducacion=[15,30] EstadoCivil=Married-civ-spouse
+ 
+Por lo tanto el negocio debe prestar atención a los clientes con dichas caractiristicas para ofrecer sus productos premium o de mayor costo que puedan ser comprados por personas que ganen mas de 50 mil dolares al año.
+
