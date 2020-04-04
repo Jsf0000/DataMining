@@ -11775,7 +11775,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Librerias">Librerias<a class="anchor-link" href="#Librerias">&#182;</a></h2>
+<h2 id="Librer&#237;as">Librer&#237;as<a class="anchor-link" href="#Librer&#237;as">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11850,7 +11850,7 @@ Percy herrara
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Prueba-del-modelo-Catboost">Prueba del modelo Catboost<a class="anchor-link" href="#Prueba-del-modelo-Catboost">&#182;</a></h1><p>Para este caso utilizamos la librería catboost, es una librería muy utilizada para datos categoricos tambien se caracteriza por utilizar efectos visuales muy utiles para enter mejor el comporatamiento de los datos categoricos</p>
+<h1 id="Prueba-del-modelo-Catboost">Prueba del modelo Catboost<a class="anchor-link" href="#Prueba-del-modelo-Catboost">&#182;</a></h1><p>Para este caso utilizamos la librería catboost, es una librería muy utilizada para datos categoricos tambien se caracteriza por utilizar efectos visuales muy utiles para entender mejor el comporatamiento de los datos categóricos</p>
 
 </div>
 </div>
@@ -11867,7 +11867,7 @@ Percy herrara
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Para el caso de CatBoost, para encontrar los mejores hyperparametros se evaluan por medio de graficos las mejores configuraciones, los hyperparametros modificados son los siguientes:</p>
+<p>Para el caso de CatBoost, para encontrar los mejores hyperparametros se evaluan por medio de gráficos las mejores configuraciones, los hyperparametros modificados son los siguientes:</p>
 <ul>
 <li>random_seed</li>
 <li>iterations</li>
@@ -11928,7 +11928,7 @@ Percy herrara
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Para este caso necesitamos referenciar los datos que son categoricos, recordar que estos datos fueron transformados en el documento anterior por lo cual ahora utilizan un indice, el cual es convertido a dato entero.</p>
+<p>Para este caso necesitamos referenciar los datos que son categóricos, recordar que estos datos fueron transformados en el documento anterior por lo cual ahora utilizan un indice, el cual es convertido a dato entero.</p>
 
 </div>
 </div>
@@ -14219,10 +14219,10 @@ define('catboost_module', modules, function(widgets) {
 
  
  
-<div id="b5d2d85b-4cae-4280-a71d-b1f9dc5766c1"></div>
+<div id="3328e92b-6514-49ff-975b-b81a0f5e4d99"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#b5d2d85b-4cae-4280-a71d-b1f9dc5766c1');
+var element = $('#3328e92b-6514-49ff-975b-b81a0f5e4d99');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "69750aeeec274d2cb41c6436d039e2ca", "version_major": 2, "version_minor": 0}
@@ -14238,9 +14238,7 @@ var element = $('#b5d2d85b-4cae-4280-a71d-b1f9dc5766c1');
 
 
 
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;catboost.core.CatBoostClassifier at 0x11c30e5f8&gt;</pre>
-</div>
+<img src="PrimerModelo.png">
 
 </div>
 
@@ -14252,7 +14250,7 @@ var element = $('#b5d2d85b-4cae-4280-a71d-b1f9dc5766c1');
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>El gráfico del entrenamiento anterior nos muestra un 49% para entrenamiento y 50% para testing, con los siguientes hyperparametros:</p>
+<p>El gráfico del entrenamiento anterior nos muestra un 52% para entrenamiento y 49% para testing, con los siguientes hyperparametros:</p>
 <ul>
 <li>one_hot_max_size = 10</li>
 <li>iterations = 2000</li>
@@ -16309,10 +16307,10 @@ define('catboost_module', modules, function(widgets) {
 
  
  
-<div id="6f3eca88-e38d-419b-8edc-463fe19cddc1"></div>
+<div id="ebddaebb-b626-440c-96f1-fb403551c159"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#6f3eca88-e38d-419b-8edc-463fe19cddc1');
+var element = $('#ebddaebb-b626-440c-96f1-fb403551c159');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "3639eb56ecec49428dda65b5776ca242", "version_major": 2, "version_minor": 0}
@@ -16328,9 +16326,7 @@ var element = $('#6f3eca88-e38d-419b-8edc-463fe19cddc1');
 
 
 
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;catboost.core.CatBoostClassifier at 0x11b9675c0&gt;</pre>
-</div>
+<img src="SegundoModelo.png">
 
 </div>
 
@@ -16342,7 +16338,7 @@ var element = $('#6f3eca88-e38d-419b-8edc-463fe19cddc1');
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>El gráfico del entrenamiento anterior nos muestra un 53% para entrenamiento y 50% para testing, con los siguientes hyperparametros:</p>
+<p>El gráfico del entrenamiento anterior nos muestra un 56% para entrenamiento y 49% para testing, con los siguientes hyperparametros:</p>
 <ul>
 <li>one_hot_max_size = 10</li>
 <li>iterations = 5000</li>
@@ -18411,10 +18407,10 @@ define('catboost_module', modules, function(widgets) {
 
  
  
-<div id="610ca653-f11d-4d78-9091-85a39ac799f0"></div>
+<div id="838f9deb-c29e-41c6-8bea-181842717327"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#610ca653-f11d-4d78-9091-85a39ac799f0');
+var element = $('#838f9deb-c29e-41c6-8bea-181842717327');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "a9ae4e40c72b451ba6f08e98b922007c", "version_major": 2, "version_minor": 0}
@@ -18430,9 +18426,7 @@ var element = $('#610ca653-f11d-4d78-9091-85a39ac799f0');
 
 
 
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;catboost.core.CatBoostClassifier at 0x11b0cb5f8&gt;</pre>
-</div>
+<img src="TercerModelo.png">
 
 </div>
 
@@ -18444,7 +18438,7 @@ var element = $('#610ca653-f11d-4d78-9091-85a39ac799f0');
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>El gráfico del entrenamiento anterior nos muestra un 54% para entrenamiento y 50% para testing, con los siguientes hyperparametros:</p>
+<p>El gráfico del entrenamiento anterior nos muestra un 49% para entrenamiento y 49% para testing, con los siguientes hyperparametros:</p>
 <ul>
 <li>iterations=3000,</li>
 <li>learning_rate=0.03,</li>
@@ -18463,11 +18457,17 @@ var element = $('#610ca653-f11d-4d78-9091-85a39ac799f0');
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Descripci&#243;n-de-modelo-obtenido-para-Catboost">Descripci&#243;n de modelo obtenido para Catboost<a class="anchor-link" href="#Descripci&#243;n-de-modelo-obtenido-para-Catboost">&#182;</a></h2><h3 id="Conclusi&#243;n">Conclusi&#243;n<a class="anchor-link" href="#Conclusi&#243;n">&#182;</a></h3><p>En el caso del Catboost el mejor accuracy en general es del primer modelo, presentando el mejor overfitting, entre la diferencia entre el accuracy del training y testing siendo un 50% y 49% respectivamente</p>
+<h2 id="Descripci&#243;n-de-modelo-obtenido-para-Catboost">Descripci&#243;n de modelo obtenido para Catboost<a class="anchor-link" href="#Descripci&#243;n-de-modelo-obtenido-para-Catboost">&#182;</a></h2><h3 id="Conclusi&#243;n">Conclusi&#243;n<a class="anchor-link" href="#Conclusi&#243;n">&#182;</a></h3><p>En el caso del Catboost el mejor accuracy en general es del tercer modelo, el mejor modelo optimizado, entre la diferencia entre el accuracy del training y testing siendo un 49% y 49% respectivamente</p>
 <p>Características del primer modelo</p>
 <ul>
-<li>one_hot_max_size = 10</li>
-<li>iterations = 2000</li>
+<li>iterations=3000,</li>
+<li>learning_rate=0.03,</li>
+<li>l2_leaf_reg=3,</li>
+<li>bagging_temperature=1,</li>
+<li>random_strength=1,</li>
+<li>one_hot_max_size=2,</li>
+<li>loss_function='MultiClass',</li>
+<li>leaf_estimation_method='Newton'</li>
 </ul>
 
 </div>
